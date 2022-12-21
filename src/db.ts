@@ -5,7 +5,6 @@ dotenv.config();
 
 const client = new Client(process.env.DATABASE_URL);
 client.connect();
-console.log("connecting to db");
 
 export const getAllItems = async () => {
   try {
@@ -13,5 +12,15 @@ export const getAllItems = async () => {
     return allItems;
   } catch (error) {
     console.error("cannot get all products", error);
+  }
+};
+
+export const getAllBrandNames = async () => {
+  try {
+    const queryText = "SELECT DISTINCT brand_name from fitnessproducts";
+    const res = await client.query(queryText);
+    return res;
+  } catch (error) {
+    console.error("Cannot get brand names", error);
   }
 };
