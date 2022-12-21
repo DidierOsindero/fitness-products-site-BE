@@ -33,7 +33,6 @@ app.get("/items", async (req, res) => {
   }
 });
 
-
 app.listen(PORT_NUMBER, () => {
   console.log(`Server is listening on port ${PORT_NUMBER}!`);
 });
