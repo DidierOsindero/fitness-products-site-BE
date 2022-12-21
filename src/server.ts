@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { getAllItems } from "./db";
+import { getAllItems, getAllBrandNames } from "./db";
 
 // loading in some dummy items into the database
 // (comment out if desired, or change the number)
@@ -29,6 +29,18 @@ app.get("/items", async (req, res) => {
     res.status(400).json({
       status: "error",
       message: "Something went wrong with the database",
+    });
+  }
+});
+
+app.get("/brands/name", async (req, res) => {
+  const brandNames = await getAllBrandNames();
+  if (brandNames) {
+    res.status(200).json(brandNames.rows);
+  } else {
+    res.status(400).json({
+      status: "error",
+      message: "Could not get brand names",
     });
   }
 });
