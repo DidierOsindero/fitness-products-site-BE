@@ -52,6 +52,21 @@ app.get("/:any", (req, res) => {
   res.sendFile(pathToFile);
 });
 
+app.post("/:any", (req, res) => {
+  const pathToFile = filePath("../public/invalidRequest.html");
+  res.sendFile(pathToFile);
+});
+
+app.put("/:any", (req, res) => {
+  const pathToFile = filePath("../public/invalidRequest.html");
+  res.sendFile(pathToFile);
+});
+
+app.delete("/:any", (req, res) => {
+  const pathToFile = filePath("../public/invalidRequest.html");
+  res.sendFile(pathToFile);
+});
+
 app.listen(PORT_NUMBER, () => {
   console.log(`Server is listening on port ${PORT_NUMBER}!`);
 });
