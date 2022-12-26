@@ -45,8 +45,9 @@ app.get("/brands/name", async (req, res) => {
   }
 });
 
-app.get("/products/sale", async (req, res) => {
-  const saleProducts = await getAllSaleProducts();
+app.get<{}, {}, {}, { amount: string }>("/products/sale", async (req, res) => {
+  const amount = req.query.amount as string;
+  const saleProducts = await getAllSaleProducts(amount);
   if (saleProducts) {
     res.status(200).json(saleProducts.rows);
   } else {
