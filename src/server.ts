@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import filePath from "./filePath";
 import { getAllItems, getAllBrandNames } from "./db";
 
 // loading in some dummy items into the database
@@ -43,6 +44,12 @@ app.get("/brands/name", async (req, res) => {
       message: "Could not get brand names",
     });
   }
+});
+
+//Handle Invalid Requests
+app.get("/:any", (req, res) => {
+  const pathToFile = filePath("../public/invalidRequest.html");
+  res.sendFile(pathToFile);
 });
 
 app.listen(PORT_NUMBER, () => {
