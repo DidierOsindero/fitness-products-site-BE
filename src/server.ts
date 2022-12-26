@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { getAllItems, getAllBrandNames } from "./db";
+import { getAllItems, getAllBrandNames, getAllSaleProducts } from "./db";
 
 // loading in some dummy items into the database
 // (comment out if desired, or change the number)
@@ -17,7 +17,7 @@ app.use(cors());
 dotenv.config();
 
 // use the environment variable PORT, or 4000 as a fallback
-const PORT_NUMBER = process.env.PORT ?? 4000;
+const PORT_NUMBER = process.env.PORT ?? 6000;
 
 // GET /items
 app.get("/items", async (req, res) => {
@@ -41,6 +41,18 @@ app.get("/brands/name", async (req, res) => {
     res.status(400).json({
       status: "error",
       message: "Could not get brand names",
+    });
+  }
+});
+
+app.get("/products/sale", async (req, res) => {
+  const saleProducts = await getAllSaleProducts();
+  if (saleProducts) {
+    res.status(200).json(saleProducts.rows);
+  } else {
+    res.status(400).json({
+      status: "error",
+      message: "Could not get sale products",
     });
   }
 });
