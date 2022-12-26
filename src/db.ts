@@ -25,7 +25,7 @@ export const getAllBrandNames = async () => {
   }
 };
 
-export const getAllSaleProducts = async (amount: string = "10") => {
+export const getAllSaleProducts = async (amount = "10") => {
   try {
     const queryText =
       "SELECT * FROM fitnessproducts WHERE selling_price < original_price LIMIT $1";
