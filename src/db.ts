@@ -24,3 +24,15 @@ export const getAllBrandNames = async () => {
     console.error("Cannot get brand names", error);
   }
 };
+
+export const getAllSaleProducts = async (amount = "10") => {
+  try {
+    const queryText =
+      "SELECT * FROM fitnessproducts WHERE selling_price < original_price LIMIT $1";
+    const queryValue = [amount];
+    const res = await client.query(queryText, queryValue);
+    return res;
+  } catch (error) {
+    console.error("Cannot get sale products", error);
+  }
+};

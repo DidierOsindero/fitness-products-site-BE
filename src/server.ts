@@ -1,8 +1,12 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+
+import { getAllItems, getAllBrandNames, getAllSaleProducts } from "./db";
+
 import filePath from "./filePath";
 import { getAllItems, getAllBrandNames } from "./db";
+
 
 // loading in some dummy items into the database
 // (comment out if desired, or change the number)
@@ -46,6 +50,19 @@ app.get("/brands/name", async (req, res) => {
   }
 });
 
+
+app.get<{}, {}, {}, { amount: string }>("/products/sale", async (req, res) => {
+  const amount = req.query.amount as string;
+  const saleProducts = await getAllSaleProducts(amount);
+  if (saleProducts) {
+    res.status(200).json(saleProducts.rows);
+  } else {
+    res.status(400).json({
+      status: "error",
+      message: "Could not get sale products",
+    });
+  }
+
 //Handle Invalid Requests
 app.get("/:any", (req, res) => {
   const pathToFile = filePath("../public/invalidRequest.html");
@@ -65,6 +82,7 @@ app.put("/:any", (req, res) => {
 app.delete("/:any", (req, res) => {
   const pathToFile = filePath("../public/invalidRequest.html");
   res.sendFile(pathToFile);
+
 });
 
 app.listen(PORT_NUMBER, () => {
