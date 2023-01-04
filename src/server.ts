@@ -3,9 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 import { getAllItems, getAllBrandNames, getAllSaleProducts } from "./db";
-
 import filePath from "./filePath";
-import { getAllItems, getAllBrandNames } from "./db";
 
 
 // loading in some dummy items into the database
@@ -61,7 +59,7 @@ app.get<{}, {}, {}, { amount: string }>("/products/sale", async (req, res) => {
       status: "error",
       message: "Could not get sale products",
     });
-  }
+  }})
 
 //Handle Invalid Requests
 app.get("/:any", (req, res) => {
