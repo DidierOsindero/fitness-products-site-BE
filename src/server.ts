@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-
 import { getAllItems, getAllBrandNames, getAllSaleProducts } from "./db";
 import filePath from "./filePath";
 
@@ -20,6 +19,12 @@ dotenv.config();
 
 // use the environment variable PORT, or 4000 as a fallback
 const PORT_NUMBER = process.env.PORT ?? 4000;
+
+// Get root URL html
+app.get("/", (req, res) => {
+  const pathToFile = filePath("../public/index.html");
+  res.sendFile(pathToFile);
+});
 
 // GET /items
 app.get("/items", async (req, res) => {
