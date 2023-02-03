@@ -36,3 +36,14 @@ export const getAllSaleProducts = async (amount = "10") => {
     console.error("Cannot get sale products", error);
   }
 };
+
+export const getAllBrandedProducts = async (brandName: string) => {
+  try {
+    const queryText = "SELECT * from fitnessproducts WHERE brand_name = $1";
+    const queryValue = [brandName];
+    const res = await client.query(queryText, queryValue);
+    return res;
+  } catch (error) {
+    console.error("cannot get branded products", error);
+  }
+};

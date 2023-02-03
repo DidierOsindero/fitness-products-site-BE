@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>My server API</title>
+    <title>Fitness Products</title>
   </head>
   <body>
     <header>
-      <h1>My server API</h1>
+      <h1>Fitness Products Server</h1>
       <h2>RESTful JSON API</h2>
     </header>
     <main>
       <section>
-        <h3>Retrieve all items</h3>
+        <h3>Retrieve Fitness Products</h3>
         <p><code>GET /items</code></p>
       </section>
       <section>
@@ -18,22 +18,14 @@
         <p><code>POST /items</code></p>
       </section>
       <section>
-        <h3>Retrieve a specific item</h3>
-        <p><code>GET /items/{id}</code></p>
+        <h3>Retrieve brands name</h3>
+        <p><code>GET /brands/{name}</code></p>
       </section>
       <section>
-        <h3>Update a specific item</h3>
-        <p><code>PATCH /items/{id}</code></p>
-        <p>Attaching a JSON body with the possible below fields:</p>
-        <ul>
-          <li><code>title</code> (string)</li>
-          <li><code>message</code> (string)</li>
-        </ul>
+        <h3>Retrieve products by brand name</h3>
+        <p><code>Get /brand/products/{brandName}</code></p>
       </section>
-      <section>
-        <h3>Delete a specific item</h3>
-        <p><code>DELETE /items/{id}</code></p>
-      </section>
+      <section></section>
     </main>
   </body>
 </html>

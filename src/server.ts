@@ -1,8 +1,12 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-
-import { getAllItems, getAllBrandNames, getAllSaleProducts } from "./db";
+import {
+  getAllItems,
+  getAllBrandNames,
+  getAllSaleProducts,
+  getAllBrandedProducts,
+} from "./db";
 import filePath from "./filePath";
 
 // loading in some dummy items into the database
@@ -20,6 +24,12 @@ dotenv.config();
 
 // use the environment variable PORT, or 4000 as a fallback
 const PORT_NUMBER = process.env.PORT ?? 4000;
+
+// Get root URL html
+app.get("/", (req, res) => {
+  const pathToFile = filePath("../public/index.html");
+  res.sendFile(pathToFile);
+});
 
 // GET /items
 app.get("/items", async (req, res) => {
@@ -47,15 +57,34 @@ app.get("/brands/name", async (req, res) => {
   }
 });
 
+/*
+1st {} = req.params type
+2nd {} = res.body type
+3rd {} = req.body type
+4th {} = req.query type
+*/
 app.get<{}, {}, {}, { amount: string }>("/products/sale", async (req, res) => {
-  const amount = req.query.amount as string;
+  const amount = req.query.amount;
   const saleProducts = await getAllSaleProducts(amount);
   if (saleProducts) {
     res.status(200).json(saleProducts.rows);
   } else {
     res.status(400).json({
-      status: "error",
+      id: "error",
       message: "Could not get sale products",
+    });
+  }
+});
+
+app.get("/brand/products/:brandName", async (req, res) => {
+  const brandName = req.params.brandName;
+  const brandedProducts = await getAllBrandedProducts(brandName);
+  if (brandedProducts) {
+    res.status(200).json(brandedProducts.rows);
+  } else {
+    res.status(400).json({
+      id: "error",
+      message: "could not get branded products",
     });
   }
 });
