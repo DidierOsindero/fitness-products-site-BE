@@ -6,6 +6,7 @@ import {
   getAllBrandNames,
   getAllSaleProducts,
   getAllBrandedProducts,
+  getProductById,
 } from "./db";
 import filePath from "./filePath";
 
@@ -85,6 +86,18 @@ app.get("/brand/products/:brandName", async (req, res) => {
     res.status(400).json({
       id: "error",
       message: "could not get branded products",
+    });
+  }
+});
+
+app.get<{ id: string }>("/brands/products/:id", async (req, res) => {
+  const product = await getProductById(req.params.id);
+  if (product) {
+    res.status(200).json(product.rows[0]);
+  } else {
+    res.status(400).json({
+      status: "error",
+      message: "Could not get product by id",
     });
   }
 });

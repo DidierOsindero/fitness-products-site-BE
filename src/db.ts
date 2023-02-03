@@ -39,8 +39,19 @@ export const getAllSaleProducts = async (amount = "10") => {
 
 export const getAllBrandedProducts = async (brandName: string) => {
   try {
-    const queryText = "SELECT * from fitnessproducts WHERE brand_name = $1";
+    const queryText = "SELECT * FROM fitnessproducts WHERE brand_name = $1";
     const queryValue = [brandName];
+    const res = await client.query(queryText, queryValue);
+    return res;
+  } catch (error) {
+    console.error("cannot get branded products", error);
+  }
+};
+
+export const getProductById = async (id: string) => {
+  try {
+    const queryText = "SELECT * FROM fitnessproducts WHERE id = $1";
+    const queryValue = [id];
     const res = await client.query(queryText, queryValue);
     return res;
   } catch (error) {
